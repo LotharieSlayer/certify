@@ -14,13 +14,7 @@ async function addSetupCommand(slashCommand) {
                 .setDescription(
                     "Entrez l'ID du/des rôles de certification qui seront à ajouter. (séparé d'une \",\" si plusieurs)"
                 )
-        )
-        .addStringOption((string) =>
-            string
-                .setName("n_certify_roles")
-                .setDescription(
-                    "Entrez l'ID du/des rôles de non-certification qui seront à enlever. (séparé d'une \",\" si plusieurs)"
-                )
+                .setRequired(true)
         )
     )
 }
@@ -37,31 +31,22 @@ async function execute(interaction) {
         case "certify":
             // eslint-disable-next-line no-case-declarations
             const getCertify = interaction.options.getString("certify_roles");
-            // eslint-disable-next-line no-case-declarations
-            const getNCertify =
-                interaction.options.getString("n_certify_roles");
 
             if (
                 setupCertify.get(interaction.guild.id) === undefined ||
                 getCertify != null ||
-                undefined ||
-                getNCertify != null ||
                 undefined
             ) {
                 if (
                     getCertify != null ||
-                    undefined ||
-                    getNCertify != null ||
                     undefined
                 ) {
                     const certifyRoles = getCertify.split(",");
-                    const nCertifyRoles = getNCertify.split(",");
                     setupCertify.set(interaction.guild.id, {
-                        certifyRoles,
-                        nCertifyRoles,
+                        certifyRoles
                     });
                     await interaction.reply({
-                        content: `**Setup de la certification terminé !**\nCertifié : ${certifyRoles}\nNCertifié : ${nCertifyRoles}`,
+                        content: `**Setup de la certification terminé !**\nCertifié : ${certifyRoles}`,
                         ephemeral: true,
                     });
                 } else {

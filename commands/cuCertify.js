@@ -37,11 +37,9 @@ async function execute( interaction ) {
     for (let i = 0; i < roles.certifyRoles.length; i++) {
         await member.roles.add(interaction.guild.roles.cache.get(roles.certifyRoles[i]));
     }
-    for (let i = 0; i < roles.nCertifyRoles.length; i++) {
-        await member.roles.remove(interaction.guild.roles.cache.get(roles.nCertifyRoles[i]));
-    }
 
-    await member.send({ embeds: [VERIFIED] });
+    try { await member.send({ embeds: [VERIFIED] }); }
+    catch(e) { console.log(`Impossible d'envoyer le message de warn à l'utilisateur ${member.user.username} (${member.id})`) }
 
     await interaction.reply({
         content: `Vous avez bien certifié <@${member.user.id}> !`,
