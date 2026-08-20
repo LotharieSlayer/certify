@@ -1,4 +1,5 @@
 /* eslint-disable no-case-declarations */
+const { MessageFlags } = require('discord.js');
 const { setupCertify } = require("../utils/enmapUtils");
 
 async function addSetupCommand(slashCommand) {
@@ -29,7 +30,7 @@ async function addSetupCommand(slashCommand) {
 async function execute(interaction) {
     switch (interaction.options._subcommand) {
         case "certify":
-            // eslint-disable-next-line no-case-declarations
+             
             const getCertify = interaction.options.getString("certify_roles");
 
             if (
@@ -47,19 +48,19 @@ async function execute(interaction) {
                     });
                     await interaction.reply({
                         content: `**Setup de la certification terminé !**\nCertifié : ${certifyRoles}`,
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 } else {
                     await interaction.reply({
                         content: `Setup de la certification à supprimer introuvable, vous devez spécifier les rôles avec des ID si vous souhaitez le configurer.`,
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
             } else {
                 setupCertify.delete(interaction.guild.id);
                 await interaction.reply({
                     content: `Setup de la certification supprimé !`,
-                    ephemeral: true,
+                    flags: MessageFlags.Ephemeral,
                 });
             }
             break;

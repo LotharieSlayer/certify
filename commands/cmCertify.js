@@ -44,7 +44,7 @@ async function execute( interaction ) {
 
     await interaction.reply({
         content: `Vous avez bien certifié <@${member.user.id}> !`,
-        ephemeral: false,
+        
     });
 }
 
